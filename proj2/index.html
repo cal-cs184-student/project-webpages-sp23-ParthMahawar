@@ -1,7 +1,681 @@
-<html>
-	<head>
-	</head>
-	<body>
-		Project 2 here
-	</body>
-</html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>CS184 Project 2</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="aeb37b4c-6592-4d7e-9b6a-f952880c1b82" class="page sans"><header><h1 class="page-title">CS184 Project 2</h1></header><div class="page-body"><p id="60ba7689-41c5-4a83-a503-d2a283fa41eb" class="">Parth Mahawar</p><h1 id="2a3d5c04-b002-4d5b-a2b7-d6d70277540f" class="">Part 1</h1><p id="9321cd5e-0e35-449e-89bf-2d9dc0467b4a" class="">De Casteljau’s algorithm finds points at a given parameter along a Bezier curve by recursively interpolating between given control points. It follows the below steps:</p><ul id="4eea98e8-bca1-41b6-9f6b-48850d1fa3ee" class="bulleted-list"><li style="list-style-type:disc">Given parameter t and n control points, create n-1 control points by calculating a weighted average of adjacent points, weighting the left point by (1-t) and the right point by t.</li></ul><ul id="778bfeba-054d-4963-8d78-5a08d97523d9" class="bulleted-list"><li style="list-style-type:disc">Repeat the above step until only 1 point is left.</li></ul><ul id="e77fbdd8-1d4b-4ca3-8abd-6f4293a1de1b" class="bulleted-list"><li style="list-style-type:disc">That one point is the point at parameter t on the entire bezier curve.</li></ul><p id="30125933-3388-4cfc-90e9-5cb6c3c7c136" class="">Example:</p><p id="5d9f05e7-924e-4b58-adee-8f6f7174053a" class="">Going through each level of the curve:</p><div id="5cc5022c-a044-4fa7-a320-fad384001e81" class="column-list"><div id="19544cd3-c98a-4679-abdd-afb3cbb0eccd" style="width:50%" class="column"><figure id="74b3df97-c899-4664-90cf-b8df25493bcb" class="image"><a href="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled.png"><img style="width:672px" src="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled.png"/></a></figure></div><div id="dce85e7f-6837-446d-8f4d-90b8d10d3c0b" style="width:50%" class="column"><figure id="98dfbdda-b17c-4070-a818-3ddb3a146529" class="image"><a href="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%201.png"><img style="width:624px" src="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%201.png"/></a></figure></div></div><div id="f79e6682-8b4b-4a31-8f16-8b025d680110" class="column-list"><div id="d46dc6ba-33f1-420e-9a17-2f6fc8c5802d" style="width:50%" class="column"><figure id="7df44414-13ab-4afc-9a11-8db3e860b3bd" class="image"><a href="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%202.png"><img style="width:961px" src="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%202.png"/></a></figure></div><div id="01273ca9-d65d-4a3f-a065-3da48a6d7660" style="width:50%" class="column"><figure id="9c8aa95f-d79b-46c4-8676-17ab8d502170" class="image"><a href="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%203.png"><img style="width:961px" src="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%203.png"/></a></figure></div></div><div id="6f53b538-277a-4854-a925-f8d81fdd55b3" class="column-list"><div id="6310eacc-8dd9-40c7-a325-2dd5d7ca7d48" style="width:50%" class="column"><figure id="51c2bc04-b815-475d-9dd5-84d6ab29096b" class="image"><a href="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%204.png"><img style="width:961px" src="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%204.png"/></a></figure></div><div id="dcdd8267-6e47-4224-bbd0-f7189e85649c" style="width:50%" class="column"><figure id="43a34a1f-9422-40ba-b474-f37c8957c712" class="image"><a href="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%205.png"><img style="width:961px" src="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%205.png"/></a></figure></div></div><p id="4adccdea-5242-4faa-9480-8deb2913ac90" class="">
+</p><p id="2c9a865e-91be-4aa9-a663-796ab4dd612a" class="">Another curve:</p><figure id="e6b5986f-9264-4ced-916f-67eddc91444f" class="image"><a href="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%206.png"><img style="width:963px" src="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%206.png"/></a></figure><p id="e43a21db-b5fa-4ea9-b74f-4a579e566df9" class="">
+</p><h1 id="72100107-f1a4-4191-be79-5cfd5690dafa" class="">Part 2</h1><p id="515fcfd6-53ec-4765-981c-44310df444a1" class="">The algorithm extends to surfaces defined by a grid of points by essentially treating each row of points as a Bezier curve, to get a new column bezier curve with the point on each row curve as control points for the column curve.</p><p id="5e55e13f-0d75-45ec-965d-e31f6cdcbd5b" class="">This was implemented in pretty much that exact way given parameters (u, v) - using De Casteljau’s algorithm to first calculate the point on the Bezier curve defined by each row’s control points at u, then using the points for each row as control points for another bezier curve, evaluating it at parameter v, and returning that value.</p><figure id="c24ae04d-7869-4de6-852e-64dd07fd24ca" class="image"><a href="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%207.png"><img style="width:963px" src="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%207.png"/></a></figure><p id="abd0e537-c028-4abc-9bca-d049bab5cbe4" class="">
+</p><h1 id="68477d4d-97ce-4bdf-a061-48c90a2fb6f0" class="">Part 3</h1><p id="0d14cce8-ce40-4f74-b8c4-672868919c87" class="">To implement area-weighted vertex normals, I first obtained all the neighbors of the vertex by traversing half-edges. Then, as adjacent members of this list would share a face with the original vertex, I took the cross product of the two vectors defined by the original vertex and each of two adjacent neghbors, which I then divided by its magnitude to get a normalized normal. I also used the 3 points to calculate the area of the triangle. I repeated this project for all adjacent neighbors of the vertex to obtain an array of normals and an array of their corresponding areas. I then calculated an average of the normals weighted by those areas to obtain the area-weighted vertex normal.</p><p id="d429102f-b825-4989-9fef-ff048362d5bd" class="">Flat shading:</p><figure id="87f0e7bb-8af3-4986-a9dd-0958c12cb0b7" class="image"><a href="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%208.png"><img style="width:961px" src="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%208.png"/></a></figure><p id="f88bd78f-49ba-4dbd-806a-6fc0c577385c" class="">Normal Shading:</p><figure id="dfd6610f-f0e2-4d17-8b72-e03954d50e82" class="image"><a href="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%209.png"><img style="width:961px" src="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%209.png"/></a></figure><p id="f31b6558-5b7e-4a41-8690-bbb5a29b9d9f" class="">
+</p><h1 id="c9ae46fc-8206-4894-8ded-cb206b69298c" class="">Part 4</h1><p id="e55b7940-26f4-4704-8943-c36af011a51b" class="">I had a rather standard implementation for edge flip, which simply involved reassigning all halfedge, edge, vertex, and face pointers in such a way that the mesh was now defined as if the edge was flipped. I did have problems initially of holes being created in the mesh, but this was fixed when instead of trying to pick and choose which pointers to reassign I simply reassigned all the ones that had any chance of changing - so chances are I had just missed something in my initial implementation.</p><p id="df7c9a21-f123-4753-9841-d2591c8b947c" class="">
+</p><p id="868c7ed7-73a7-43bd-8403-11d64000c04c" class="">Example:</p><div id="142acaa8-199d-4dd8-8a88-64cbb93bb732" class="column-list"><div id="c0ae220b-2bf3-4d77-9137-63b5e93b13ac" style="width:50%" class="column"><figure id="6c414935-3550-4e4b-a00d-768748f3a15b" class="image"><a href="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2010.png"><img style="width:961px" src="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2010.png"/></a></figure><p id="d4c57bea-4898-41aa-b66e-580ddfa2945e" class="">Initial</p></div><div id="91ac970b-bf5c-4a2a-95a6-c969c4f3396f" style="width:50%" class="column"><figure id="4bb96c07-c5d5-4c5a-b43b-ed82eea4a1b1" class="image"><a href="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2011.png"><img style="width:961px" src="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2011.png"/></a></figure><p id="2dc55b93-38c5-4852-afee-3829de88189d" class="">Some edges flipped</p></div></div><h1 id="d62b5780-d02f-4faf-8fd6-dac5811721dd" class="">Part 5</h1><p id="19eb1ac0-e68a-472f-8dfe-a8507d226df6" class="">Implementing the edge split operation was rather similar to edge flip (except for adjustments made for loop subdivision that I will go into in the next part), with simply making sure that all relevant pointers were reassigned appropriately. Since I followed the recommendation of assigning all relevant pointers, I didn’t have much of a wild debugging journey.</p><p id="e01c6bd8-2275-4320-a99b-9fe7d2cd0fbc" class="">Example of just splits:</p><div id="d6bee0e2-0672-4afd-a766-ae7b71f0cb30" class="column-list"><div id="3dbd6853-bfa8-41a5-86ff-a2e9ef278e39" style="width:50%" class="column"><figure id="436ba597-a617-461a-93a0-db21c2ca5bf4" class="image"><a href="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2012.png"><img style="width:961px" src="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2012.png"/></a></figure></div><div id="1473d788-e35b-45bd-ae10-2df21437c9b2" style="width:50%" class="column"><figure id="657f8923-0ecf-49a6-bec7-e7c77f2fbf1c" class="image"><a href="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2013.png"><img style="width:963px" src="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2013.png"/></a></figure></div></div><p id="317bbca1-492f-406a-a58f-f905762a2876" class="">
+</p><p id="d0a41f35-34f5-49ab-8b3b-029341f52349" class="">Mix of splits and flips:</p><div id="c4b6de7c-0894-41b1-8ceb-104ccf5ee9fc" class="column-list"><div id="a6b4e590-8f6d-48c5-badb-6666d439ff8b" style="width:50%" class="column"><figure id="a9056bb9-ca05-4e72-b588-13e9c8d73506" class="image"><a href="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2014.png"><img style="width:962px" src="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2014.png"/></a></figure></div><div id="e2603fcb-fe83-4766-94f9-245bec31fde4" style="width:50%" class="column"><figure id="4d2dd6e5-cad3-4a06-aa69-9d66770cf14d" class="image"><a href="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2015.png"><img style="width:962px" src="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2015.png"/></a></figure></div></div><p id="4a697d66-87d5-4b86-932a-3b7af55011ec" class="">
+</p><h1 id="e50b9653-990f-4b7c-9565-265c90ebd05c" class="">Part 6</h1><p id="dee9200e-22e3-403c-89ff-535f007cd365" class="">I implemented loop subdivision by following the recommendation in the spec - calculating new positions for existing vertices first, then calculating new positions for new vertices, and finally splitting then flipping. The major implementation trick that I had to use to get things working was adding a variable isBeingSubdivided to the edge class, so that I could reuse the same split function and have it decide whether to add a vertex to the midpoint, or to the edge→newPosition calculated.</p><p id="2460b07b-3da8-4a4b-a737-5f4868b609bb" class="">The major thing I’ve noticed is that vertices tend to get a bit closer together after subdivision, and the mesh typically decreases in volume. Sharp corners and edges tend to round off, which makes sense as the entire point of subdivision is to make these transitions smoother. </p><p id="e2f5465b-9826-49a4-a88f-b88b55753e1f" class="">
+</p><p id="495608e8-172d-48e4-832d-98383be25716" class="">Repeatedly subdividing smooths out edges and decreases volume:</p><div id="f412f08b-a1a0-4a26-be40-02dfbbf3789f" class="column-list"><div id="b359e01d-f1d0-457d-9013-43f6abf3f0b8" style="width:50%" class="column"><figure id="43c6fab9-a759-4f4c-8c25-56066f195d9d" class="image"><a href="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2016.png"><img style="width:961px" src="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2016.png"/></a></figure></div><div id="29f9831f-2ef8-4f96-a563-7f0d32f2dc6a" style="width:50%" class="column"><figure id="ff65e35e-a728-405f-88df-8e7a351f83f2" class="image"><a href="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2017.png"><img style="width:961px" src="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2017.png"/></a></figure></div></div><div id="0c8742df-6ffe-4256-93e7-d08678d69765" class="column-list"><div id="77f36eba-b15f-4226-a701-b131e0ad6c62" style="width:50%" class="column"><figure id="36108365-2ebc-4ef7-8846-da1657b70549" class="image"><a href="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2018.png"><img style="width:963px" src="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2018.png"/></a></figure></div><div id="cd6b6402-19a9-4d5c-9ad1-5339feeb0316" style="width:50%" class="column"><figure id="9af77624-e92b-42cf-843a-b4fa97c3b9ce" class="image"><a href="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2019.png"><img style="width:961px" src="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2019.png"/></a></figure></div></div><p id="0bf5af9b-75ba-4b7b-89ac-500a6f0b8a85" class="">
+</p><p id="0206b564-6c2c-4993-8ac2-9b7609d77fdf" class="">Pre splitting edges on these 5 faces decreases how much those edges get smoothed out.</p><div id="b39df819-c4ef-413c-bcbc-a703b0eaa51c" class="column-list"><div id="8e737082-a396-4787-9924-b6356515f9ed" style="width:50%" class="column"><figure id="ae4a5771-d7d4-4df2-9eec-835658cc9771" class="image"><a href="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2020.png"><img style="width:963px" src="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2020.png"/></a></figure></div><div id="e7e0b585-d968-4b13-a195-89e26f4d0c20" style="width:50%" class="column"><figure id="79e2a269-7ad1-4c2c-8705-d7cf28023861" class="image"><a href="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2021.png"><img style="width:963px" src="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2021.png"/></a></figure></div></div><p id="98d39ba9-91a8-482d-8fc9-b6eb7db6c261" class="">
+</p><p id="8fc1e5d1-da0d-4f3f-9914-73b090e93157" class="">Cube becoming asymmetric after several subdivisions - this behavior occurs as the positions of existing vertices are updated as a weighted average of their current positions and those of their neighbors. The vertices that have diagonal edges connected to them are therefore pulled further into the cube as they have more neighbors that are further away.</p><div id="a75f1986-2d8c-4ded-a27c-2eee4d39b215" class="column-list"><div id="3b895874-92d2-4a08-907f-2c70fdec5c02" style="width:50%" class="column"><figure id="10aa1cef-7e21-41c6-988b-a60feba5995d" class="image"><a href="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2022.png"><img style="width:961px" src="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2022.png"/></a></figure></div><div id="36e9e671-9441-484a-8294-e0ba79c28191" style="width:50%" class="column"><figure id="afc43d4f-8763-4fb0-8dfe-81efe79f5750" class="image"><a href="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2023.png"><img style="width:961px" src="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2023.png"/></a></figure></div></div><p id="3eb17a82-c108-497b-af2f-a113b64ea522" class="">
+</p><p id="c7fb75d6-51ba-41dd-9e0e-2e00398c7289" class="">By splitting the edge on every face of the cube, the cube no longer subdivides asymmetrically, as now all vertices have an equal number of neighbors, at the same distance across the cube.</p><div id="89571210-f02e-44d9-9ed7-206db39969b9" class="column-list"><div id="6d7d37bf-24ba-4bfd-b976-137351b14d83" style="width:50%" class="column"><figure id="9635a97c-03ba-4bb6-8af8-93fa5c998a80" class="image"><a href="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2024.png"><img style="width:963px" src="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2024.png"/></a></figure></div><div id="d9830903-55ac-47b4-add5-ec560290fcf5" style="width:50%" class="column"><figure id="409196a1-c30c-4415-bab9-4088886c7734" class="image"><a href="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2025.png"><img style="width:963px" src="CS184%20Project%202%20aeb37b4c65924d7e9b6af952880c1b82/Untitled%2025.png"/></a></figure></div></div><p id="c005be62-90bf-4075-9194-df11061470d2" class="">
+</p></div></article></body></html>
